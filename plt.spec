@@ -9,6 +9,7 @@ Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version
 # Source0-md5:	0036e215d9402f7755b23cc875090f9e
 Patch0:		%{name}-install.patch
 URL:		http://www.drscheme.org/
+BuildRequires:	expat-devel
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	libjpeg-devel
