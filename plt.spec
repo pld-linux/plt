@@ -1,16 +1,20 @@
-Summary:	PLT DrScheme
+Summary:	PLT DrScheme programming environment
+Summary(pl):	¦rodowisko programistyczne PLT DrScheme
 Name:		plt
 Version:	202
 Release:	0.1
 License:	LGPL
 Group:		Development/Languages
-Source0:	%{name}.src.x.tar.gz
+Source0:	http://download.plt-scheme.org/bundles/202/plt/%{name}.src.x.tar.gz
 Patch0:		%{name}-install.patch
-Url:		http://www.drscheme.org/
+URL:		http://www.drscheme.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 DrScheme, a pedagogical programming environment.
+
+%description -l pl
+DrScheme - ¶rodowisko programistyczne przeznaczone g³ównie do nauki.
 
 %prep
 %setup -q -n plt
