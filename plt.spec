@@ -1,5 +1,3 @@
-# TODO:
-# - build shared version
 Summary:	PLT Scheme programming environment
 Summary(pl):	¦rodowisko programistyczne PLT Scheme
 Name:		plt
@@ -47,6 +45,7 @@ Scheme oraz dodaje ró¿ne rozszerzenia.
 Summary:	PLT graphical Scheme implementation
 Summary(pl):	Graficzna implementacja jêzyka PLT Scheme
 Group:		Development/Languages
+Requires:	%{name}-mzscheme = %{version}-%{release}
 
 %description mred
 MrEd is the PLT's graphical Scheme implementation. It embeds and 
@@ -61,6 +60,7 @@ u¿ytkownika(GUI).
 Summary:	PLT Scheme graphical development environment
 Summary(pl):	Graficzne ¶rodowisko programistyczne PLT Scheme
 Group:		Development/Languages
+Requires:	%{name}-mred = %{version}-%{release}
 
 %description drscheme
 DrScheme is the graphical development environment for creating
@@ -70,10 +70,23 @@ MzScheme and MrEd applications.
 DrScheme jest graficznym ¶rodowiskiem do tworzenia aplikacji MzScheme 
 i MrEd.
 
+%package games
+Summary:	Sample games from PLT Scheme
+Summary(pl):	Przyk³adowe gry z projektu PLT Scheme
+Group:		Applications/Games
+Requires:	%{name}-mred = %{version}-%{release}
+
+%description games
+This package contains sample games from PLT Scheme project.
+
+%description games -l pl
+Pakiet zawiera przyk³adowe gry z projektu PLT Scheme.
+
 %package devel
 Summary:	Development header files for PLT
 Summary(pl):	Pliki nag³ówkowe dla PLT
 Group:		Development/Languages
+Requires:	%{name}-mzscheme = %{version}-%{release}
 
 %description devel
 This package contains the symlinks, headers and object files needed to 
@@ -88,29 +101,39 @@ do kompilacji i inkowania programów wykorzystuj±cych PLT.
 
 %build
 cd src
-%configure
+%configure \
+	--enable-shared \
+	--prefix=$RPM_BUILD_ROOT%{_prefix}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_mandir},%{_datadir}/drscheme}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir},%{_includedir},%{_libdir}/%{name}}
 
 %{__make} -C src install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
 
-mv $RPM_BUILD_ROOT%{_prefix}/{collects,teachpack} $RPM_BUILD_ROOT%{_datadir}/drscheme
+mv $RPM_BUILD_ROOT%{_prefix}/{collects,teachpack} $RPM_BUILD_ROOT%{_libdir}/%{name}
 mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 
-#patch -p1 <%PATCH0
-#install install $RPM_BUILD_ROOT%{_bindir}/drscheme-install
+#cp -p -r collects teachpack $RPM_BUILD_ROOT%{_libdir}/%{name}
+ln -sf %{_bindir} $RPM_BUILD_ROOT%{_libdir}/%{name}/bin
 
-#perl -pi -e "s#$RPM_BUILD_ROOT##g" $RPM_BUILD_ROOT%{_bindir}/{background-help-desk,drscheme,drscheme-install,help-desk,mzc,setup-plt,tex2page}
+#cd src/mzscheme 
+#%{__make} install \
+#	 prefix=$RPM_BUILD_ROOT%{_prefix}
+#cd ../..
 
-#%post
-#PLTHOME=%{_prefix}
-#PLTCOLLECTS=%{_datadir}/drscheme/collects
-#export PLTHOME PLTCOLLECTS
-#echo -e "n\ny\n" | %{_bindir}/drscheme-install
+# emulate setup procedure
+export PLTHOME=$RPM_BUILD_ROOT/%{_libdir}/%{name}
+(cd $RPM_BUILD_ROOT/%{_libdir}/%{name} && bin/mzscheme -qe "(dynamic-require '(lib \"setup.ss\" \"setup\") #f)")
+for script in drscheme help-desk mzc setup-plt tex2page mzpp games mztext pdf-slatex slatex slideshow web* framework*; do
+	perl -pi -e "s|PLTHOME=\"$RPM_BUILD_ROOT%{_prefix}\"|PLTHOME=\"%{_libdir}/%{name}\"|" \
+		$RPM_BUILD_ROOT%{_bindir}/$script
+done
+for file in `find $RPM_BUILD_ROOT/%{_libdir}/%{name}/collects -name *.dep`; do
+	perl -pi -e 's|'$RPM_BUILD_ROOT'||' $file
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -118,19 +141,74 @@ rm -rf $RPM_BUILD_ROOT
 %files mzscheme
 %defattr(644,root,root,755)
 %doc notes/mzscheme/*
+%attr(755,root,root) %{_bindir}/help-desk
+%attr(755,root,root) %{_bindir}/mzscheme
+%attr(755,root,root) %{_bindir}/mzc
+%attr(755,root,root) %{_bindir}/setup-plt
+%attr(755,root,root) %{_bindir}/tex2page
+%attr(755,root,root) %{_bindir}/web-server
+%attr(755,root,root) %{_bindir}/web-server-monitor
+%attr(755,root,root) %{_bindir}/web-server-text
+
+# not sure...
+%attr(755,root,root) %{_bindir}/mzpp
+%attr(755,root,root) %{_bindir}/mztext
+%attr(755,root,root) %{_bindir}/pdf-slatex
+%attr(755,root,root) %{_bindir}/slatex
+%attr(755,root,root) %{_bindir}/slideshow
+
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/collects
+%{_libdir}/%{name}/collects/xml
+%{_libdir}/%{name}/collects/web-server
+%{_libdir}/%{name}/collects/version
+%{_libdir}/%{name}/collects/t*
+%{_libdir}/%{name}/collects/s*
+%{_libdir}/%{name}/collects/p*
+%{_libdir}/%{name}/collects/o*
+%{_libdir}/%{name}/collects/n*
+%{_libdir}/%{name}/collects/mz*
+%{_libdir}/%{name}/collects/mrlib
+%{_libdir}/%{name}/collects/make
+%{_libdir}/%{name}/collects/l*
+%{_libdir}/%{name}/collects/i*
+%{_libdir}/%{name}/collects/h*
+%{_libdir}/%{name}/collects/graphics
+%{_libdir}/%{name}/collects/f*
+%{_libdir}/%{name}/collects/e*
+%{_libdir}/%{name}/collects/dynext
+%{_libdir}/%{name}/collects/doc
+%{_libdir}/%{name}/collects/compiler
+%{_libdir}/%{name}/collects/browser
+%{_libdir}/%{name}/collects/a*
+%{_libdir}/%{name}/bin
+%{_mandir}/man1/mzscheme.1*
+%{_mandir}/man1/help-desk.1*
+%{_mandir}/man1/tex2page.1*
+%{_libdir}/*.so
+
+%files games
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/games
+%{_libdir}/%{name}/collects/games
 
 %files mred
 %defattr(644,root,root,755)
+%doc notes/mred/*
+%attr(755,root,root) %{_bindir}/mred
+%{_libdir}/%{name}/collects/mred
+%{_mandir}/man1/mred.1*
 
 %files drscheme
 %defattr(644,root,root,755)
+%doc notes/drscheme/*
+%attr(755,root,root) %{_bindir}/drscheme
+%{_libdir}/%{name}/collects/drscheme
+%{_libdir}/%{name}/teachpack
+%{_mandir}/man1/drscheme.1*
 
 %files devel
 %defattr(644,root,root,755)
-
-#%attr(755,root,root) %{_bindir}/*
-#%{_includedir}/*
-#%{_libdir}/*.a
-#%{_libdir}/*.o
-#%{_datadir}/drscheme
-#%{_mandir}/man1/*
+%{_includedir}/*
+%{_libdir}/*.la
+%{_libdir}/*.o
