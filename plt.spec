@@ -19,11 +19,11 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-PLT Scheme is an umbrella name for a family of implementations of the                                                      
-Scheme programming language.                                                                                               
+PLT Scheme is an umbrella name for a family of implementations of the
+Scheme programming language.
 
 %description -l pl
-PLT Scheme jest wspóln± nazw± dla rodziny implementacji jêzyków 
+PLT Scheme jest wspóln± nazw± dla rodziny implementacji jêzyków
 programowania Scheme.
 
 %package mzscheme
@@ -32,14 +32,14 @@ Summary(pl):	Implementacja jêzyka PLT Scheme
 Group:		Development/Languages
 
 %description mzscheme
-MzScheme is the PLT Scheme implementation. It implements
-the language as described in the Revised^5 Report on the
-Algorithmic Language Scheme and adds numerous extensions.
+MzScheme is the PLT Scheme implementation. It implements the language
+as described in the Revised^5 Report on the Algorithmic Language
+Scheme and adds numerous extensions.
 
 %description mzscheme -l pl
-MzScheme jest implementacj± PLT Scheme. Implementuje jêzyk 
-jak zdefiniowano w raporcie Revised^5 algorytmicznego jêzyka 
-Scheme oraz dodaje ró¿ne rozszerzenia.
+MzScheme jest implementacj± PLT Scheme. Implementuje jêzyk
+zdefiniowany w raporcie Revised^5 algorytmicznego jêzyka Scheme oraz
+dodaje ró¿ne rozszerzenia.
 
 %package mred
 Summary:	PLT graphical Scheme implementation
@@ -48,12 +48,12 @@ Group:		Development/Languages
 Requires:	%{name}-mzscheme = %{version}-%{release}
 
 %description mred
-MrEd is the PLT's graphical Scheme implementation. It embeds and 
+MrEd is the PLT's graphical Scheme implementation. It embeds and
 extends MzScheme with a graphical user interface (GUI) toolbox.
 
 %description mred -l pl
 MrEd jest graificzn± implementacj± jêzyka Scheme z PLT. Zawiera i
-rozszerza MzScheme o zestaw narzêdzi do graficznego interfejsu 
+rozszerza MzScheme o zestaw narzêdzi do graficznego interfejsu
 u¿ytkownika(GUI).
 
 %package drscheme
@@ -67,7 +67,7 @@ DrScheme is the graphical development environment for creating
 MzScheme and MrEd applications.
 
 %description drscheme -l pl
-DrScheme jest graficznym ¶rodowiskiem do tworzenia aplikacji MzScheme 
+DrScheme jest graficznym ¶rodowiskiem do tworzenia aplikacji MzScheme
 i MrEd.
 
 %package games
@@ -89,11 +89,11 @@ Group:		Development/Languages
 Requires:	%{name}-mzscheme = %{version}-%{release}
 
 %description devel
-This package contains the symlinks, headers and object files needed to 
+This package contains the symlinks, headers and object files needed to
 compile and link programs which use PLT.
 
 %description devel -l pl
-Pakiet zawiera linki symboliczne, pliki nag³ówkowe i biblioteki niezbêdne 
+Pakiet zawiera linki symboliczne, pliki nag³ówkowe i biblioteki niezbêdne
 do kompilacji i inkowania programów wykorzystuj±cych PLT.
 
 %prep
@@ -125,8 +125,10 @@ ln -sf %{_bindir} $RPM_BUILD_ROOT%{_libdir}/%{name}/bin
 #cd ../..
 
 # emulate setup procedure
-export PLTHOME=$RPM_BUILD_ROOT/%{_libdir}/%{name}
-(cd $RPM_BUILD_ROOT/%{_libdir}/%{name} && bin/mzscheme -qe "(dynamic-require '(lib \"setup.ss\" \"setup\") #f)")
+export PLTHOME=$RPM_BUILD_ROOT%{_libdir}/%{name}
+cd $RPM_BUILD_ROOT%{_libdir}/%{name}
+bin/mzscheme -qe "(dynamic-require '(lib \"setup.ss\" \"setup\") #f)"
+cd -
 for script in drscheme help-desk mzc setup-plt tex2page mzpp games mztext pdf-slatex slatex slideshow web* framework*; do
 	perl -pi -e "s|PLTHOME=\"$RPM_BUILD_ROOT%{_prefix}\"|PLTHOME=\"%{_libdir}/%{name}\"|" \
 		$RPM_BUILD_ROOT%{_bindir}/$script
@@ -209,6 +211,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/*
 %{_libdir}/*.la
 %{_libdir}/*.o
+%{_includedir}/*
