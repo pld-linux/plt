@@ -6,6 +6,7 @@ Release:	0.1
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://download.plt-scheme.org/bundles/202/plt/%{name}.src.x.tar.gz
+# Source0-md5:	a5508da0917807553d30a127ccb65599
 Patch0:		%{name}-install.patch
 URL:		http://www.drscheme.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
