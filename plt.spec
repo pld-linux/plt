@@ -138,6 +138,8 @@ niezbêdne do kompilacji i inkowania programów wykorzystuj±cych PLT.
 
 %build
 cd src
+CFLAGS="%{rpmcflags} -fPIC"
+CXXFLAGS="%{rpmcflags} -fPIC"
 %configure \
 	--enable-shared \
 	--prefix=$RPM_BUILD_ROOT%{_prefix}
