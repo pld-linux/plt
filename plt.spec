@@ -148,6 +148,9 @@ CXXFLAGS="%{rpmcflags} -fPIC"
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir},%{_includedir},%{_libdir}/%{name}}
+%if "%{_lib}" != "lib"
+ln -sf %{_lib} $RPM_BUILD_ROOT%{_prefix}/lib
+%endif
 
 %{__make} -C src install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
