@@ -156,6 +156,8 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 #temporary
 ln -sf $RPM_BUILD_ROOT{%{_bindir},%{_includedir}} $RPM_BUILD_ROOT%{_libdir}/%{name}
 ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
+# very temporary, stupid, etc.. but maybe help?
+ln -sf $RPM_BUILD_ROOT%{_libdir}/%{name}/collects $RPM_BUILD_ROOT%{_prefix}
 
 # emulate setup procedure
 export PLTHOME=$RPM_BUILD_ROOT%{_libdir}/%{name}
