@@ -1,14 +1,21 @@
 Summary:	PLT DrScheme programming environment
 Summary(pl):	¦rodowisko programistyczne PLT DrScheme
 Name:		plt
-Version:	202
+Version:	208
 Release:	0.1
 License:	LGPL
 Group:		Development/Languages
-Source0:	http://download.plt-scheme.org/bundles/202/plt/%{name}.src.x.tar.gz
-# Source0-md5:	a5508da0917807553d30a127ccb65599
-Patch0:		%{name}-install.patch
+Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version}-src-unix.tgz
+# Source0-md5:	0036e215d9402f7755b23cc875090f9e
+#Patch0:		%{name}-install.patch
 URL:		http://www.drscheme.org/
+BuildRequires:	fontconfig-devel
+BuildRequires:	freetype-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libstdc++-devel
+BuildRequires:	openssl-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -18,7 +25,7 @@ DrScheme, a pedagogical programming environment.
 DrScheme - ¶rodowisko programistyczne przeznaczone g³ównie do nauki.
 
 %prep
-%setup -q -n plt
+%setup -q -n %{name}
 
 %build
 cd src
@@ -34,7 +41,7 @@ install -d $RPM_BUILD_ROOT{%{_mandir},%{_datadir}/drscheme}
 mv $RPM_BUILD_ROOT%{_prefix}/{collects,teachpack} $RPM_BUILD_ROOT%{_datadir}/drscheme
 mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 
-patch -p1 <%PATCH0
+#patch -p1 <%PATCH0
 install install $RPM_BUILD_ROOT%{_bindir}/drscheme-install
 
 perl -pi -e "s#$RPM_BUILD_ROOT##g" $RPM_BUILD_ROOT%{_bindir}/{background-help-desk,drscheme,drscheme-install,help-desk,mzc,setup-plt,tex2page}
