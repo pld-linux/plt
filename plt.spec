@@ -2,7 +2,7 @@ Summary:	PLT Scheme programming environment
 Summary(pl):	¦rodowisko programistyczne PLT Scheme
 Name:		plt
 Version:	208
-Release:	0.1
+Release:	1
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version}-src-unix.tgz
@@ -17,6 +17,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
+ExcludeArch:	alpha amd64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -163,7 +164,7 @@ cd $RPM_BUILD_ROOT%{_libdir}/%{name}
 bin/mzscheme -qe "(dynamic-require '(lib \"setup.ss\" \"setup\") #f)"
 cd -
 for script in drscheme help-desk mzc setup-plt tex2page mzpp games mztext pdf-slatex slatex slideshow web* framework*; do
-	perl -pi -e "s|PLTHOME=\"$RPM_BUILD_ROOT%{_prefix}\"|PLTHOME=\"%{_libdir}/%{name}\"|" \
+	perl -pi -e "s|PLTHOME=\"$RPM_BUILD_ROOT%{_libdir}/%{name}\"|PLTHOME=\"%{_libdir}/%{name}\"|" \
 		$RPM_BUILD_ROOT%{_bindir}/$script
 done
 for file in `find $RPM_BUILD_ROOT/%{_libdir}/%{name}/collects -name *.dep`; do
