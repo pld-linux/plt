@@ -82,6 +82,42 @@ This package contains sample games from PLT Scheme project.
 %description games -l pl
 Pakiet zawiera przyk³adowe gry z projektu PLT Scheme.
 
+%package help-desk
+Summary:	Help desk for PLT Scheme
+Summary(pl):	Pomoc dla PLT Scheme
+Group:		Documentation
+Requires:	%{name}-mred = %{version}-%{release}
+
+%description help-desk
+Help desk for PLT Scheme.
+
+%description help-desk -l pl
+Pakiet zawiera graficzn± pomoc dla PLT Scheme.
+
+%package slideshow
+Summary:	Slideshow from PLT Scheme
+Summary(pl):	Pokaz slajdów z PLT Scheme
+Group:		Applications/Graphics
+Requires:	%{name}-mred = %{version}-%{release}
+
+%description slideshow
+Slideshow from PLT Scheme.
+
+%description slideshow -l pl
+Pokaz slajdów z PLT Scheme.
+
+%package webserver
+Summary:	Webserver from PLT Scheme
+Summary(pl):	Serwer WEB z PLT Scheme
+Group:		Applications/WWW
+Requires:	%{name}-mred = %{version}-%{release}
+
+%description webserver
+Webserver from PLT Scheme.
+
+%description slideshow -l pl
+Serwer web z PLT Scheme.
+
 %package devel
 Summary:	Development header files for PLT
 Summary(pl):	Pliki nag³ówkowe dla PLT
@@ -93,8 +129,8 @@ This package contains the symlinks, headers and object files needed to
 compile and link programs which use PLT.
 
 %description devel -l pl
-Pakiet zawiera linki symboliczne, pliki nag³ówkowe i biblioteki niezbêdne
-do kompilacji i inkowania programów wykorzystuj±cych PLT.
+Pakiet zawiera linki symboliczne, pliki nag³ówkowe i biblioteki
+niezbêdne do kompilacji i inkowania programów wykorzystuj±cych PLT.
 
 %prep
 %setup -q -n %{name}
@@ -119,11 +155,6 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 #cp -p -r collects teachpack $RPM_BUILD_ROOT%{_libdir}/%{name}
 ln -sf %{_bindir} $RPM_BUILD_ROOT%{_libdir}/%{name}/bin
 
-#cd src/mzscheme 
-#%{__make} install \
-#	 prefix=$RPM_BUILD_ROOT%{_prefix}
-#cd ../..
-
 # emulate setup procedure
 export PLTHOME=$RPM_BUILD_ROOT%{_libdir}/%{name}
 cd $RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -137,35 +168,37 @@ for file in `find $RPM_BUILD_ROOT/%{_libdir}/%{name}/collects -name *.dep`; do
 	perl -pi -e 's|'$RPM_BUILD_ROOT'||' $file
 done
 
+mv notes/teachpack/HISTORY teachpack.history
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files mzscheme
 %defattr(644,root,root,755)
 %doc notes/mzscheme/*
-%attr(755,root,root) %{_bindir}/help-desk
+%doc notes/stepper
 %attr(755,root,root) %{_bindir}/mzscheme
 %attr(755,root,root) %{_bindir}/mzc
-%attr(755,root,root) %{_bindir}/setup-plt
-%attr(755,root,root) %{_bindir}/tex2page
-%attr(755,root,root) %{_bindir}/web-server
-%attr(755,root,root) %{_bindir}/web-server-monitor
-%attr(755,root,root) %{_bindir}/web-server-text
-
-# not sure...
 %attr(755,root,root) %{_bindir}/mzpp
 %attr(755,root,root) %{_bindir}/mztext
 %attr(755,root,root) %{_bindir}/pdf-slatex
 %attr(755,root,root) %{_bindir}/slatex
-%attr(755,root,root) %{_bindir}/slideshow
+%attr(755,root,root) %{_bindir}/setup-plt
+%attr(755,root,root) %{_bindir}/tex2page
 
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/collects
 %{_libdir}/%{name}/collects/xml
-%{_libdir}/%{name}/collects/web-server
 %{_libdir}/%{name}/collects/version
 %{_libdir}/%{name}/collects/t*
-%{_libdir}/%{name}/collects/s*
+%{_libdir}/%{name}/collects/setup
+%{_libdir}/%{name}/collects/sgl
+%{_libdir}/%{name}/collects/slatex
+%{_libdir}/%{name}/collects/slibinit
+%{_libdir}/%{name}/collects/srfi
+%{_libdir}/%{name}/collects/stepper
+%{_libdir}/%{name}/collects/string-constants
+%{_libdir}/%{name}/collects/syntax*
 %{_libdir}/%{name}/collects/p*
 %{_libdir}/%{name}/collects/o*
 %{_libdir}/%{name}/collects/n*
@@ -174,18 +207,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/make
 %{_libdir}/%{name}/collects/l*
 %{_libdir}/%{name}/collects/i*
-%{_libdir}/%{name}/collects/h*
+%{_libdir}/%{name}/collects/hi*
+%{_libdir}/%{name}/collects/ht*
 %{_libdir}/%{name}/collects/graphics
 %{_libdir}/%{name}/collects/f*
 %{_libdir}/%{name}/collects/e*
 %{_libdir}/%{name}/collects/dynext
-%{_libdir}/%{name}/collects/doc
 %{_libdir}/%{name}/collects/compiler
 %{_libdir}/%{name}/collects/browser
 %{_libdir}/%{name}/collects/a*
 %{_libdir}/%{name}/bin
 %{_mandir}/man1/mzscheme.1*
-%{_mandir}/man1/help-desk.1*
 %{_mandir}/man1/tex2page.1*
 %{_libdir}/*.so
 
@@ -193,6 +225,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/games
 %{_libdir}/%{name}/collects/games
+
+%files help-desk
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/help-desk
+%{_libdir}/%{name}/collects/help
+%{_libdir}/%{name}/collects/doc
+%{_mandir}/man1/help-desk.1*
+
+%files webserver
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/web-server*
+%{_libdir}/%{name}/collects/web-server
+
+%files slideshow
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/slideshow
+%{_libdir}/%{name}/collects/slideshow
 
 %files mred
 %defattr(644,root,root,755)
@@ -203,7 +252,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files drscheme
 %defattr(644,root,root,755)
-%doc notes/drscheme/*
+%doc notes/drscheme/* teachpack.history
 %attr(755,root,root) %{_bindir}/drscheme
 %{_libdir}/%{name}/collects/drscheme
 %{_libdir}/%{name}/teachpack
