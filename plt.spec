@@ -138,8 +138,6 @@ niezbêdne do kompilacji i inkowania programów wykorzystuj±cych PLT.
 
 %build
 cd src
-CFLAGS="%{rpmcflags} -fPIC"
-CXXFLAGS="%{rpmcflags} -fPIC"
 %configure \
 	--enable-shared \
 	--prefix=$RPM_BUILD_ROOT%{_prefix}
@@ -148,9 +146,6 @@ CXXFLAGS="%{rpmcflags} -fPIC"
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir},%{_includedir},%{_libdir}/%{name}}
-%if "%{_lib}" != "lib"
-ln -sf %{_lib} $RPM_BUILD_ROOT%{_prefix}/lib
-%endif
 
 %{__make} -C src install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
@@ -161,8 +156,6 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 #temporary
 ln -sf $RPM_BUILD_ROOT{%{_bindir},%{_includedir}} $RPM_BUILD_ROOT%{_libdir}/%{name}
 ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
-# very temporary, stupid, etc.. but maybe help?
-ln -sf $RPM_BUILD_ROOT%{_libdir}/%{name}/collects $RPM_BUILD_ROOT%{_prefix}
 
 # emulate setup procedure
 export PLTHOME=$RPM_BUILD_ROOT%{_libdir}/%{name}
