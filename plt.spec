@@ -153,8 +153,9 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir},%{_includedir},%{_libdir}/%{nam
 mv $RPM_BUILD_ROOT%{_prefix}/{collects,teachpack} $RPM_BUILD_ROOT%{_libdir}/%{name}
 mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 
-#cp -p -r collects teachpack $RPM_BUILD_ROOT%{_libdir}/%{name}
-ln -sf %{_bindir} $RPM_BUILD_ROOT%{_libdir}/%{name}/bin
+#temporary
+ln -sf $RPM_BUILD_ROOT{%{_bindir},%{_includedir}} $RPM_BUILD_ROOT%{_libdir}/%{name}
+ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
 
 # emulate setup procedure
 export PLTHOME=$RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -168,6 +169,10 @@ done
 for file in `find $RPM_BUILD_ROOT/%{_libdir}/%{name}/collects -name *.dep`; do
 	perl -pi -e 's|'$RPM_BUILD_ROOT'||' $file
 done
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/{bin,lib,include}
+ln -sf %{_bindir} %{_includedir}  $RPM_BUILD_ROOT%{_libdir}/%{name}
+ln -sf %{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
 
 mv notes/teachpack/HISTORY teachpack.history
 
@@ -218,6 +223,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/browser
 %{_libdir}/%{name}/collects/a*
 %{_libdir}/%{name}/bin
+%{_libdir}/%{name}/lib
+%{_libdir}/%{name}/include
 %{_mandir}/man1/mzscheme.1*
 %{_mandir}/man1/tex2page.1*
 %{_libdir}/*.so
