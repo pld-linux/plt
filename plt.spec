@@ -16,8 +16,9 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel
+BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	zlib-devel
-ExcludeArch:	alpha amd64
+ExcludeArch:	%{x8664} alpha
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
