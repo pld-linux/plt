@@ -7,18 +7,22 @@ License:	LGPL
 Group:		Development/Languages
 Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version}-src-unix.tgz
 # Source0-md5:	0036e215d9402f7755b23cc875090f9e
-Patch0:		%{name}-install.patch
+#Patch0:		%{name}-install.patch
+Patch0:		%{name}-pic.patch
+Patch1:		%{name}-lib64.patch
 URL:		http://www.drscheme.org/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	openssl-devel
-BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	zlib-devel
-ExcludeArch:	%{x8664} alpha
+ExcludeArch:	alpha
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -137,18 +141,28 @@ niezbêdne do kompilacji i inkowania programów wykorzystuj±cych PLT.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
+%if "%{_lib}" == "lib64"
+%patch1 -p1
+%endif
 
 %build
-cd src
+cd src/lt
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+cd ..
+ln -sf mzscheme/configure.in .
+%{__autoconf}
 %configure \
-	--enable-shared \
-	--prefix=$RPM_BUILD_ROOT%{_prefix}
+	--enable-shared
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir},%{_includedir},%{_libdir}/%{name}}
 
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 %{__make} -C src install \
 	prefix=$RPM_BUILD_ROOT%{_prefix}
 
@@ -157,7 +171,7 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/man1 $RPM_BUILD_ROOT%{_mandir}
 
 #temporary
 ln -sf $RPM_BUILD_ROOT{%{_bindir},%{_includedir}} $RPM_BUILD_ROOT%{_libdir}/%{name}
-ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
+ln -sf $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/%{_lib}
 
 # emulate setup procedure
 export PLTHOME=$RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -168,13 +182,13 @@ for script in drscheme help-desk mzc setup-plt tex2page mzpp games mztext pdf-sl
 	perl -pi -e "s|PLTHOME=\"$RPM_BUILD_ROOT%{_libdir}/%{name}\"|PLTHOME=\"%{_libdir}/%{name}\"|" \
 		$RPM_BUILD_ROOT%{_bindir}/$script
 done
-for file in `find $RPM_BUILD_ROOT/%{_libdir}/%{name}/collects -name *.dep`; do
+for file in `find $RPM_BUILD_ROOT%{_libdir}/%{name}/collects -name *.dep`; do
 	perl -pi -e 's|'$RPM_BUILD_ROOT'||' $file
 done
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/{bin,lib,include}
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/{bin,%{_lib},include}
 ln -sf %{_bindir} %{_includedir}  $RPM_BUILD_ROOT%{_libdir}/%{name}
-ln -sf %{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib
+ln -sf %{_libdir} $RPM_BUILD_ROOT%{_libdir}/%{name}/%{_lib}
 
 mv notes/teachpack/HISTORY teachpack.history
 
@@ -225,7 +239,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/browser
 %{_libdir}/%{name}/collects/a*
 %{_libdir}/%{name}/bin
-%{_libdir}/%{name}/lib
+%{_libdir}/%{name}/%{_lib}
 %{_libdir}/%{name}/include
 %{_mandir}/man1/mzscheme.1*
 %{_mandir}/man1/tex2page.1*
