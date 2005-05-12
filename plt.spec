@@ -2,14 +2,15 @@ Summary:	PLT Scheme programming environment
 Summary(pl):	¦rodowisko programistyczne PLT Scheme
 Name:		plt
 Version:	208
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version}-src-unix.tgz
 # Source0-md5:	0036e215d9402f7755b23cc875090f9e
 #Patch0:		%{name}-install.patch
 Patch0:		%{name}-pic.patch
-Patch1:		%{name}-lib64.patch
+Patch1:		%{name}-alpha.patch
+Patch2:		%{name}-lib64.patch
 URL:		http://www.drscheme.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -22,7 +23,6 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
-ExcludeArch:	alpha
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -142,8 +142,9 @@ niezbêdne do kompilacji i inkowania programów wykorzystuj±cych PLT.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-%if "%{_lib}" == "lib64"
 %patch1 -p1
+%if "%{_lib}" == "lib64"
+%patch2 -p1
 %endif
 
 %build
