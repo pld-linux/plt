@@ -1,5 +1,5 @@
 Summary:	PLT Scheme programming environment
-Summary(pl):	¦rodowisko programistyczne PLT Scheme
+Summary(pl.UTF-8):   Åšrodowisko programistyczne PLT Scheme
 Name:		plt
 Version:	208
 Release:	2
@@ -29,13 +29,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 PLT Scheme is an umbrella name for a family of implementations of the
 Scheme programming language.
 
-%description -l pl
-PLT Scheme jest wspóln± nazw± dla rodziny implementacji jêzyków
+%description -l pl.UTF-8
+PLT Scheme jest wspÃ³lnÄ… nazwÄ… dla rodziny implementacji jÄ™zykÃ³w
 programowania Scheme.
 
 %package mzscheme
 Summary:	PLT Scheme implementation
-Summary(pl):	Implementacja jêzyka PLT Scheme
+Summary(pl.UTF-8):   Implementacja jÄ™zyka PLT Scheme
 Group:		Development/Languages
 
 %description mzscheme
@@ -43,14 +43,14 @@ MzScheme is the PLT Scheme implementation. It implements the language
 as described in the Revised^5 Report on the Algorithmic Language
 Scheme and adds numerous extensions.
 
-%description mzscheme -l pl
-MzScheme jest implementacj± PLT Scheme. Implementuje jêzyk
-zdefiniowany w raporcie Revised^5 algorytmicznego jêzyka Scheme oraz
-dodaje ró¿ne rozszerzenia.
+%description mzscheme -l pl.UTF-8
+MzScheme jest implementacjÄ… PLT Scheme. Implementuje jÄ™zyk
+zdefiniowany w raporcie Revised^5 algorytmicznego jÄ™zyka Scheme oraz
+dodaje rÃ³Å¼ne rozszerzenia.
 
 %package mred
 Summary:	PLT graphical Scheme implementation
-Summary(pl):	Graficzna implementacja jêzyka PLT Scheme
+Summary(pl.UTF-8):   Graficzna implementacja jÄ™zyka PLT Scheme
 Group:		Development/Languages
 Requires:	%{name}-mzscheme = %{version}-%{release}
 
@@ -58,14 +58,14 @@ Requires:	%{name}-mzscheme = %{version}-%{release}
 MrEd is the PLT's graphical Scheme implementation. It embeds and
 extends MzScheme with a graphical user interface (GUI) toolbox.
 
-%description mred -l pl
-MrEd jest graificzn± implementacj± jêzyka Scheme z PLT. Zawiera i
-rozszerza MzScheme o zestaw narzêdzi do graficznego interfejsu
-u¿ytkownika(GUI).
+%description mred -l pl.UTF-8
+MrEd jest graificznÄ… implementacjÄ… jÄ™zyka Scheme z PLT. Zawiera i
+rozszerza MzScheme o zestaw narzÄ™dzi do graficznego interfejsu
+uÅ¼ytkownika(GUI).
 
 %package drscheme
 Summary:	PLT Scheme graphical development environment
-Summary(pl):	Graficzne ¶rodowisko programistyczne PLT Scheme
+Summary(pl.UTF-8):   Graficzne Å›rodowisko programistyczne PLT Scheme
 Group:		Development/Languages
 Requires:	%{name}-mred = %{version}-%{release}
 
@@ -73,61 +73,61 @@ Requires:	%{name}-mred = %{version}-%{release}
 DrScheme is the graphical development environment for creating
 MzScheme and MrEd applications.
 
-%description drscheme -l pl
-DrScheme jest graficznym ¶rodowiskiem do tworzenia aplikacji MzScheme
+%description drscheme -l pl.UTF-8
+DrScheme jest graficznym Å›rodowiskiem do tworzenia aplikacji MzScheme
 i MrEd.
 
 %package games
 Summary:	Sample games from PLT Scheme
-Summary(pl):	Przyk³adowe gry z projektu PLT Scheme
+Summary(pl.UTF-8):   PrzykÅ‚adowe gry z projektu PLT Scheme
 Group:		Applications/Games
 Requires:	%{name}-mred = %{version}-%{release}
 
 %description games
 This package contains sample games from PLT Scheme project.
 
-%description games -l pl
-Pakiet zawiera przyk³adowe gry z projektu PLT Scheme.
+%description games -l pl.UTF-8
+Pakiet zawiera przykÅ‚adowe gry z projektu PLT Scheme.
 
 %package help-desk
 Summary:	Help desk for PLT Scheme
-Summary(pl):	Pomoc dla PLT Scheme
+Summary(pl.UTF-8):   Pomoc dla PLT Scheme
 Group:		Documentation
 Requires:	%{name}-mred = %{version}-%{release}
 
 %description help-desk
 Help desk for PLT Scheme.
 
-%description help-desk -l pl
-Pakiet zawiera graficzn± pomoc dla PLT Scheme.
+%description help-desk -l pl.UTF-8
+Pakiet zawiera graficznÄ… pomoc dla PLT Scheme.
 
 %package slideshow
 Summary:	Slideshow from PLT Scheme
-Summary(pl):	Pokaz slajdów z PLT Scheme
+Summary(pl.UTF-8):   Pokaz slajdÃ³w z PLT Scheme
 Group:		Applications/Graphics
 Requires:	%{name}-mred = %{version}-%{release}
 
 %description slideshow
 Slideshow from PLT Scheme.
 
-%description slideshow -l pl
-Pokaz slajdów z PLT Scheme.
+%description slideshow -l pl.UTF-8
+Pokaz slajdÃ³w z PLT Scheme.
 
 %package webserver
 Summary:	Webserver from PLT Scheme
-Summary(pl):	Serwer WEB z PLT Scheme
+Summary(pl.UTF-8):   Serwer WEB z PLT Scheme
 Group:		Applications/WWW
 Requires:	%{name}-mred = %{version}-%{release}
 
 %description webserver
 Webserver from PLT Scheme.
 
-%description slideshow -l pl
+%description slideshow -l pl.UTF-8
 Serwer web z PLT Scheme.
 
 %package devel
 Summary:	Development header files for PLT
-Summary(pl):	Pliki nag³ówkowe dla PLT
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe dla PLT
 Group:		Development/Languages
 Requires:	%{name}-mzscheme = %{version}-%{release}
 
@@ -135,9 +135,9 @@ Requires:	%{name}-mzscheme = %{version}-%{release}
 This package contains the symlinks, headers and object files needed to
 compile and link programs which use PLT.
 
-%description devel -l pl
-Pakiet zawiera linki symboliczne, pliki nag³ówkowe i biblioteki
-niezbêdne do kompilacji i inkowania programów wykorzystuj±cych PLT.
+%description devel -l pl.UTF-8
+Pakiet zawiera linki symboliczne, pliki nagÅ‚Ã³wkowe i biblioteki
+niezbÄ™dne do kompilacji i inkowania programÃ³w wykorzystujÄ…cych PLT.
 
 %prep
 %setup -q -n %{name}
