@@ -1,5 +1,5 @@
 Summary:	PLT Scheme programming environment
-Summary(pl.UTF-8):   Środowisko programistyczne PLT Scheme
+Summary(pl.UTF-8):	Środowisko programistyczne PLT Scheme
 Name:		plt
 Version:	208
 Release:	2
@@ -35,7 +35,7 @@ programowania Scheme.
 
 %package mzscheme
 Summary:	PLT Scheme implementation
-Summary(pl.UTF-8):   Implementacja języka PLT Scheme
+Summary(pl.UTF-8):	Implementacja języka PLT Scheme
 Group:		Development/Languages
 
 %description mzscheme
@@ -50,7 +50,7 @@ dodaje różne rozszerzenia.
 
 %package mred
 Summary:	PLT graphical Scheme implementation
-Summary(pl.UTF-8):   Graficzna implementacja języka PLT Scheme
+Summary(pl.UTF-8):	Graficzna implementacja języka PLT Scheme
 Group:		Development/Languages
 Requires:	%{name}-mzscheme = %{version}-%{release}
 
@@ -65,7 +65,7 @@ użytkownika(GUI).
 
 %package drscheme
 Summary:	PLT Scheme graphical development environment
-Summary(pl.UTF-8):   Graficzne środowisko programistyczne PLT Scheme
+Summary(pl.UTF-8):	Graficzne środowisko programistyczne PLT Scheme
 Group:		Development/Languages
 Requires:	%{name}-mred = %{version}-%{release}
 
@@ -79,7 +79,7 @@ i MrEd.
 
 %package games
 Summary:	Sample games from PLT Scheme
-Summary(pl.UTF-8):   Przykładowe gry z projektu PLT Scheme
+Summary(pl.UTF-8):	Przykładowe gry z projektu PLT Scheme
 Group:		Applications/Games
 Requires:	%{name}-mred = %{version}-%{release}
 
@@ -91,7 +91,7 @@ Pakiet zawiera przykładowe gry z projektu PLT Scheme.
 
 %package help-desk
 Summary:	Help desk for PLT Scheme
-Summary(pl.UTF-8):   Pomoc dla PLT Scheme
+Summary(pl.UTF-8):	Pomoc dla PLT Scheme
 Group:		Documentation
 Requires:	%{name}-mred = %{version}-%{release}
 
@@ -103,7 +103,7 @@ Pakiet zawiera graficzną pomoc dla PLT Scheme.
 
 %package slideshow
 Summary:	Slideshow from PLT Scheme
-Summary(pl.UTF-8):   Pokaz slajdów z PLT Scheme
+Summary(pl.UTF-8):	Pokaz slajdów z PLT Scheme
 Group:		Applications/Graphics
 Requires:	%{name}-mred = %{version}-%{release}
 
@@ -115,7 +115,7 @@ Pokaz slajdów z PLT Scheme.
 
 %package webserver
 Summary:	Webserver from PLT Scheme
-Summary(pl.UTF-8):   Serwer WEB z PLT Scheme
+Summary(pl.UTF-8):	Serwer WEB z PLT Scheme
 Group:		Applications/WWW
 Requires:	%{name}-mred = %{version}-%{release}
 
@@ -127,7 +127,7 @@ Serwer web z PLT Scheme.
 
 %package devel
 Summary:	Development header files for PLT
-Summary(pl.UTF-8):   Pliki nagłówkowe dla PLT
+Summary(pl.UTF-8):	Pliki nagłówkowe dla PLT
 Group:		Development/Languages
 Requires:	%{name}-mzscheme = %{version}-%{release}
 
