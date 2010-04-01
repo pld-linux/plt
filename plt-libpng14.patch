@@ -1,0 +1,11 @@
+--- plt-4.2.4/src/wxcommon/wxJPEG.cxx~	2010-01-18 07:06:55.000000000 +0100
++++ plt-4.2.4/src/wxcommon/wxJPEG.cxx	2010-04-01 14:52:35.738185922 +0200
+@@ -726,7 +726,7 @@
+        png_set_strip_16(png_ptr);
+ 
+      /* Expand grayscale images to the full 8 bits from 1, 2, or 4 bits/pixel */
+-     png_set_gray_1_2_4_to_8(png_ptr);
++     png_set_expand_gray_1_2_4_to_8(png_ptr);
+    }
+ 
+    /* Set the background color to draw transparent and alpha images over.

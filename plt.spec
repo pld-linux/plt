@@ -1,17 +1,13 @@
-#
-# TODO:
-# - lib64 patch still needed?
-#
 Summary:	PLT Scheme programming environment
 Summary(pl.UTF-8):	Środowisko programistyczne PLT Scheme
 Name:		plt
-Version:	4.2.1
-Release:	0.9
+Version:	4.2.4
+Release:	1
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version}-src-unix.tgz
-# Source0-md5:	d448aa8b579682687a8748100a901274
-#Patch0:		%{name}-lib64.patch
+# Source0-md5:	7a21fcb5b565b8c352aa22e1698eb05b
+Patch0:		%{name}-libpng14.patch
 URL:		http://www.drscheme.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -153,9 +149,7 @@ niezbędne do kompilacji i inkowania programów wykorzystujących PLT.
 
 %prep
 %setup -q -n %{name}-%{version}
-#if "%{_lib}" == "lib64"
-#patch0 -p1
-#endif
+%patch0 -p1
 
 %build
 cd src/mzscheme
@@ -221,7 +215,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/graphics
 %{_libdir}/%{name}/collects/help
 %{_libdir}/%{name}/collects/hierlist
-%{_libdir}/%{name}/collects/htdch
 %{_libdir}/%{name}/collects/htdp
 %{_libdir}/%{name}/collects/html
 %{_libdir}/%{name}/collects/icons
@@ -240,7 +233,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/plot
 %{_libdir}/%{name}/collects/preprocessor
 %{_libdir}/%{name}/collects/profile
-%{_libdir}/%{name}/collects/profj
 %{_libdir}/%{name}/collects/r5rs
 %{_libdir}/%{name}/collects/r6rs
 %{_libdir}/%{name}/collects/readline
@@ -257,7 +249,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/srfi
 %{_libdir}/%{name}/collects/stepper
 %{_libdir}/%{name}/collects/string-constants
-%{_libdir}/%{name}/collects/stxclass
 %{_libdir}/%{name}/collects/swindle
 %{_libdir}/%{name}/collects/syntax
 %{_libdir}/%{name}/collects/syntax-color
@@ -269,6 +260,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/collects/trace
 %{_libdir}/%{name}/collects/typed
 %{_libdir}/%{name}/collects/typed-scheme
+%{_libdir}/%{name}/collects/unstable
 %{_libdir}/%{name}/collects/version
 %{_libdir}/%{name}/collects/wxme
 %{_libdir}/%{name}/collects/xml
