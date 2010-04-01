@@ -2,7 +2,7 @@ Summary:	PLT Scheme programming environment
 Summary(pl.UTF-8):	Środowisko programistyczne PLT Scheme
 Name:		plt
 Version:	4.2.4
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://download.plt-scheme.org/bundles/%{version}/plt/%{name}-%{version}-src-unix.tgz
@@ -280,6 +280,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/plt-help
 %{_libdir}/%{name}/collects/help
 %{_libdir}/%{name}/collects/scribblings
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/doc
 %{_mandir}/man1/plt-help.1*
 
