@@ -130,7 +130,7 @@ Group:		Applications/WWW
 %description webserver
 Webserver from PLT Scheme.
 
-%description slideshow -l pl.UTF-8
+%description webserver -l pl.UTF-8
 Serwer web z PLT Scheme.
 
 %package devel
