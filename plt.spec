@@ -149,7 +149,7 @@ niezbędne do kompilacji i inkowania programów wykorzystujących PLT.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 cd src/mzscheme
